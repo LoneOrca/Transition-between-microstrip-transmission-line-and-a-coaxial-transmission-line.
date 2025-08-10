@@ -1,0 +1,37 @@
+; Top Design: "Transition_lib:MStrip_V3:schematic"
+; Netlisted using Hierarchy Policy: "Standard"
+
+Options ResourceUsage=yes UseNutmegFormat=no EnableOptim=no TopDesignName="Transition_lib:MStrip_V3:schematic" DcopOutputNodeVoltages=yes DcopOutputPinCurrents=yes DcopOutputAllSweepPoints=no DcopOutputDcopType=0
+S_Param:SP1 CalcS=yes CalcY=no CalcZ=no GroupDelayAperture=1e-4 FreqConversion=no FreqConversionPort=1 StatusLevel=2 CalcNoise=no SortNoise=0 BandwidthForNoise=1.0 Hz DevOpPtLevel=0 SPSS_WSP=yes \
+SweepVar="freq" SweepPlan="SP1_stim" OutputPlan="SP1_Output" 
+
+SweepPlan: SP1_stim Start=3 GHz Stop=7 GHz Step=25 MHz 
+
+OutputPlan:SP1_Output \
+      Type="Output" \
+      UseEquationNestLevel=yes \
+      EquationNestLevel=2 \
+      UseSavedEquationNestLevel=yes \
+      SavedEquationNestLevel=2
+
+#load "python","LinearCollapse"
+Component Module="LinearCollapse" Type="ModelExtractor" NetworkRepresentation=2
+Port:Term2  N__1 0 Num=2 Z=50 Ohm Noise=yes 
+Port:Term1  N__3 0 Num=1 Z=50 Ohm Noise=yes 
+
+;#@# autodisplay="S_Params_Quad_dB_Smith"
+model MSub1 MSUB H=1.27 mm Er=10.7 Mur=1 Cond=5.8E+7 Hu=7.62 mm T=18 um TanD=0.0023 DielectricLossModel=1 FreqForEpsrTanD=1.0 GHz LowFreqForTanD=1.0 kHz HighFreqForTanD=1.0 THz RoughnessModel=2 
+#uselib "ckt" , "SnP"
+SnP:SnP1  N__5 N__1 NumPorts=2 File="C:\Users\SIVA SRINIVAS\Desktop\EE-414-515-DP6\DP6_Design Project 6 V0.s2p" Type="touchstone" InterpMode="linear" InterpDom="" ExtrapMode="constant" Temp=27.0 CheckPassivity=0 
+MLIN2:TL1  N__4 N__5 Subst="MSub1" W=W0 L=d1*X1 Wall1=2.5e+28 mm Wall2=2.5e+28 mm Mod=1 
+MLIN2:TL2  N__3 N__7 Subst="MSub1" W=W0 L=dp1 Wall1=2.5e+28 mm Wall2=2.5e+28 mm Mod=1 
+MTEE_ADS:Tee1  N__7 N__4 N__11 Subst="MSub1" W1=W0 W2=W0 W3=W0 
+MLEF2:TL3  N__11 Subst="MSub1" W=W0 L=d2*X2 Wall1=2.5e+28 mm Wall2=2.5e+28 mm Mod=1 
+
+d1=2.2066 mm
+W0=1.13554 mm
+dp1=2.75352 mm
+d2=2.03009 mm
+
+X2=1 tune{ 0.5 to 1.5 by 0.1 }
+X1=0.87 tune{ 0.5 to 1.5 by 0.1 }

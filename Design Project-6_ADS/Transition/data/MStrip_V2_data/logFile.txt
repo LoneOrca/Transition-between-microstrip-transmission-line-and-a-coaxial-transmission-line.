@@ -1,0 +1,17 @@
+
+hpeesofsim (*) 595.shp Oct 31 2023, MINT version 5
+    (64-bit windows built: Tue Oct 31, 2023 22:23:19 +0000)
+
+
+***** Simulation started at Thu May  9 21:31:34 2024
+      Running on host: "LAPTOP-PGPK6ETP"
+      In Directory: "C:\Users\SIVA SRINIVAS\Desktop\EE-414-515-DP6\Design Project-6_ADS\Transition\data"
+      Process ID: 22636
+
+
+SP SP1[1] <Transition_lib:MStrip_V2:schematic>   freq=(3 GHz->7 GHz)
+
+
+Resource usage:
+  Total stopwatch time     =     1.80 seconds.
+
